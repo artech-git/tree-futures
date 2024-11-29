@@ -1,0 +1,10 @@
+[package]
+name = "collections-futures"
+version = "0.1.1"
+edition = "2021"
+description = "A utility crate for working with futures through collections types."
+license = "MIT OR Apache-2.0"
+keywords = ["asynchronous", "concurrency", "futures", "collections"]
+documentation = "https://docs.rs/collections-futures/latest/collections_futures/"
+[dependencies]
+futures = {version = "0.3", features = ["executor"]}
