@@ -4,7 +4,7 @@ use futures::FutureExt;
 
 use crate::{error::TreeFutureError, tree_future_output::TreeFutureOutput, BoxedResultFuture};
 
-/// Create a type which can hold multiple futures and return them in order of completion using a BTreeMap
+/// Composed type which can hold multiple futures and poll them in order of insertion under a BTreeMap
 pub struct TreeFuture<E, T> {
     futures: BTreeMap<E, BoxedResultFuture<T>>,
 }
