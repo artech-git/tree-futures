@@ -4,7 +4,7 @@
  Below is a example of how to use the `TreeFuture` struct to manage multiple futures and their results.
 ```rust
     use futures::stream::StreamExt;
-    use binary_tree_futures::TreeFuture;
+    use collections_futures::TreeFuture;
 
     let mut tree_future = TreeFuture::new();
     let some_async_block = async move {
@@ -25,7 +25,7 @@
   Or if you wish to utilize abort handle for a specific future within this collection which you already supplied you may do so like this, during time of initialization
 ```rust
     use futures::stream::StreamExt;
-    use binary_tree_futures::TreeFuture;
+    use collections_futures::TreeFuture;
 
     let mut tree_future = TreeFuture::new();
 
@@ -47,15 +47,20 @@
 
 pub(crate) mod error;
 pub(crate) mod tree_future;
+pub(crate) mod tree_future_local;
 pub(crate) mod tree_future_output;
 
 use std::future::Future;
 
 pub use error::TreeFutureError;
 pub use tree_future::TreeFuture;
+pub use tree_future_local::TreeFutureLocal;
 pub use tree_future_output::TreeFutureOutput;
 
 //TODO: currently lifetime issues doesn't shows up, but need to prepare for it in future with different lifetimes!
 /// Boxed future type which can hold any future and maps them to returns a `Result<T, Box<dyn TreeFutureError>>`
 pub type BoxedResultFuture<T> =
     std::pin::Pin<Box<dyn Future<Output = Result<T, Box<dyn TreeFutureError>>> + Send + 'static>>;
+
+pub type BoxedResultFutureLocal<T> =
+    std::pin::Pin<Box<dyn Future<Output = Result<T, Box<dyn TreeFutureError>>>>>;
